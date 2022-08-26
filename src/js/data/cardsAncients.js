@@ -1,7 +1,7 @@
 const cardsAncients = [
     {
         id: 'azathoth',
-        name: 'azathoth',
+        name: 'Azathoth',
         cardFace: './assets/img/ancients/azathoth.jpg',
         firstStage: {
             greenCards: 1,
@@ -21,7 +21,7 @@ const cardsAncients = [
     },
     {
         id: 'cthulhu',
-        name: 'cthulhu',
+        name: 'Cthulhu',
         cardFace: './assets/img/ancients/cthulthu.jpg',
         firstStage: {
             greenCards: 0,
@@ -41,7 +41,7 @@ const cardsAncients = [
     },
     {
         id: 'iogSothoth',
-        name: 'iogSothoth',
+        name: 'Iog-Sothoth',
         cardFace: './assets/img/ancients/iogsothoth.jpg',
         firstStage: {
             greenCards: 0,
@@ -61,7 +61,7 @@ const cardsAncients = [
     },
     {
         id: 'shubNiggurath',
-        name: 'shubNiggurath',
+        name: 'Shub-Niggurath',
         cardFace: './assets/img/ancients/shubniggurath.jpg',
         firstStage: {
             greenCards: 1,

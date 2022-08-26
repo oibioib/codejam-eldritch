@@ -1,0 +1,119 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: $font;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  padding: $gap;
+  background-image: url("../assets/img/bg.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.wrapper {
+  padding: $gap;
+  width: 100%;
+  max-width: 1024px;
+}
+
+.block {
+  background-color: rgba($color-background, 0.15);
+  margin-bottom: $gap;
+  border-radius: $border-radius;
+
+}
+
+.button {
+  border: 2px solid rgba($color-primary, 0.8);
+  outline: 0;
+  padding: calc($gap / 2);
+  border-radius: $border-radius;
+  transition: $transition;
+  cursor: pointer;
+  background-color: rgba($color-primary, 0.25);
+  color: #FFFFFF;
+
+  &:hover {
+    color: #FFFFFF;
+    border: 2px solid $color-primary;
+    background-color: $color-primary;
+    box-shadow: $box-shadow-hover;
+  }
+
+  &.active {
+    color: #FFFFFF;
+    border: 2px solid $color-primary;
+    background-color: $color-primary;
+
+    &:hover {
+      background-color: rgba($color-primary, 0.9);
+      box-shadow: none;
+    }
+  }
+
+  &_big {
+    font-size: 2rem;
+    padding: calc($gap);
+  }
+}
+
+.links {
+  margin: $gap;
+  margin-bottom: 0;
+  display: flex;
+  gap: $gap;
+  align-items:flex-end;
+  justify-content: center;
+}
+
+.link {
+  display: block;
+  background-size: cover;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+    
+  &:hover {
+    opacity: 1;
+  }
+
+  &_github {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: url("../assets/svg/github.svg") center center no-repeat;
+    background-size: 2.5rem 2.5rem;
+  }
+  
+  &_rsschool {
+    width: 9rem;
+    height: 2.5rem;
+    background: url("../assets/svg/rsschooljs.svg") center center no-repeat;
+  }
+}
+
+.make-deck {
+  display: none;
+  justify-content: center;
+
+  &.active {
+    display: flex;
+  }
+
+  &__button {
+    min-width: 40%
+  }
+}

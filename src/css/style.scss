@@ -1,5 +1,8 @@
 @import "~normalize.css";
 
-* {
-  box-sizing: border-box;
-}
+@import "./variables";
+@import "./base";
+
+@import "./ancients";
+@import "./difficulties";
+@import "./cards";

@@ -1,0 +1,10 @@
+.difficulties {
+  display: flex;
+  justify-content: center;
+  gap: $gap;
+  flex-wrap: wrap;
+
+  & > * {
+    flex: 1 0 150px;
+  }
+}
