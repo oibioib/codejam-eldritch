@@ -49,8 +49,8 @@ const createDifficultiesButtons = (selector, difficultiesData, activeDifficulty)
     selector.replaceChildren(...diffs);
 };
 
-const createDifficultiesButtonsHandler = (activeDifficulty = null) => {
+const renderDifficultiesBlock = (activeDifficulty = null) => {
     createDifficultiesButtons(difficultiesBlock, difficulties, activeDifficulty);
 };
 
-export default createDifficultiesButtonsHandler;
+export default renderDifficultiesBlock;

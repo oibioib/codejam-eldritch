@@ -1,7 +1,7 @@
 import cardsAncients from '../data/cardsAncients';
 import { ancientsBlock } from '../selectors';
 
-const ancientCardClass = 'ancients__card';
+const ancientCardClass = 'card';
 export const ancientCardDataAttr = 'data-ancient';
 const ancientCardDataAttrName = 'data-ancient-name';
 const activeClass = 'active';
@@ -24,8 +24,8 @@ const createAncients = (selector, ancientsData, activeAncient) => {
     selector.replaceChildren(...ancients);
 };
 
-const createAncientsHandler = (activeAncient = null) => {
+const renderAncientsBlock = (activeAncient = null) => {
     createAncients(ancientsBlock, cardsAncients, activeAncient);
 };
 
-export default createAncientsHandler;
+export default renderAncientsBlock;

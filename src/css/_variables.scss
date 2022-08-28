@@ -1,8 +1,8 @@
-$font: 'Trebuchet Ms', Helvetica, Arial, sans-serif;
+$font: "Trebuchet Ms", Helvetica, Arial, sans-serif;
 
 // $color-primary: #824dc9;
-$color-primary: #DF8050;
-$color-background: #FFFFFF;
+$color-primary: #bc4fc8;
+$color-background: #ffffff;
 $card-green: #319149;
 $card-brown: #b47f4c;
 $card-blue: #1b477a;
@@ -13,9 +13,10 @@ $border-radius: 10px;
 
 $transition: all 0.3s ease;
 
-$box-shadow-hover: 
-  0px 0px 0px 1px rgba($color-primary, 0.2), 
-  0px 0px 0px 4px rgba($color-primary, 0.3);
+$box-shadow-hover: 0px 0px 0px 1px rgba($color-primary, 0.2), 0px 0px 0px 4px rgba($color-primary, 0.3);
+$box-shadow-active: 0px 0px 0px 4px rgba($color-primary, 1);
+$box-shadow-green: 0px 0px 0px 4px rgba($card-green, 1);
+$box-shadow-blue: 0px 0px 0px 4px rgba($card-blue, 1);
+$box-shadow-brown: 0px 0px 0px 4px rgba($card-brown, 1);
 
-$box-shadow-active: 
-  0px 0px 0px 4px rgba($color-primary, 1);
+$log-opacity: 0.5;

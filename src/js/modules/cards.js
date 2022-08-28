@@ -3,8 +3,8 @@ import cardsGreen from '../data/cardsGreen';
 import cardsBrown from '../data/cardsBrown';
 import cardsBlue from '../data/cardsBlue';
 import { difficulties } from './difficulties';
-import { cardsBlock } from '../selectors';
-import { getRandomNums } from '../auxiliary/functions';
+import { cardsBlock, deckBlock, deckCurrentCard, deckTakeCard } from '../selectors';
+import { getRandomNums, loadImg } from '../auxiliary/functions';
 
 const cardsStageClass = 'cards__stage';
 const cardsStageTitleClass = 'cards__stage-title';
@@ -17,6 +17,10 @@ const cardsColors = {
     blue: cardsBlue
 };
 
+export const getAncientData = (ancientId) => cardsAncients.filter(({ id }) => id === ancientId)[0];
+// eslint-disable-next-line max-len
+const getDifficultyData = (difficultyId) => difficulties.filter(({ id }) => id === difficultyId)[0].select;
+
 const createStage = (stageData, stageNum) => {
     const stage = document.createElement('div');
     stage.classList.add(cardsStageClass);
@@ -25,12 +29,13 @@ const createStage = (stageData, stageNum) => {
     stageTitle.classList.add(cardsStageTitleClass);
     const stageTitles = ['Первая', 'Вторая', 'Третья'];
     stageTitle.textContent = `${stageTitles[stageNum]} стадия`;
+    const { green, brown, blue } = stageData;
+    const cardsInStage = [green, brown, blue].reduce((acc, cur) => acc + cur, 0);
+    if (!cardsInStage) stageTitle.classList.add('desaturate');
 
     const stageCards = document.createElement('div');
     stageCards.classList.add(cardsStageCardsClass);
-
-    const { greenCards, brownCards, blueCards } = stageData;
-    [greenCards, brownCards, blueCards].forEach((card, index) => {
+    [green, brown, blue].forEach((card, index) => {
         const colors = ['green', 'brown', 'blue'];
         const div = document.createElement('div');
         div.classList.add(cardsStageCardClass);
@@ -64,9 +69,9 @@ const countAncientCardsColors = (ancientData) => {
     };
     const { firstStage, secondStage, thirdStage } = ancientData;
     [firstStage, secondStage, thirdStage].forEach((stage) => {
-        colors.green += stage.greenCards;
-        colors.brown += stage.brownCards;
-        colors.blue += stage.blueCards;
+        colors.green += stage.green;
+        colors.brown += stage.brown;
+        colors.blue += stage.blue;
     });
     return colors;
 };
@@ -100,37 +105,62 @@ const selectAllCardsByColorAndAllDifficulties = (color, quantity, diffData) => {
     return cards;
 };
 
-const selectCards = (colors, diffData) => {
+const selectAllCardsForDeck = (colors, diffData) => {
     let cards = [];
-
     Object.entries(colors).forEach(([color, quantity]) => {
         cards = [...cards, ...selectAllCardsByColorAndAllDifficulties(color, quantity, diffData)];
     });
-
     return cards;
 };
 
-const getAncientData = (ancientId) => cardsAncients.filter(({ id }) => id === ancientId)[0];
-// eslint-disable-next-line max-len
-const getDifficultyData = (difficultyId) => difficulties.filter(({ id }) => id === difficultyId)[0].select;
+export const selectAllCardsForDeckHandler = (ancientId, difficultyId) => selectAllCardsForDeck(
+    countAncientCardsColors(getAncientData(ancientId)),
+    getDifficultyData(difficultyId)
+);
 
-const createCardsBlockHandler = (ancientId, difficultyId) => {
+const renderCardsBlock = (ancientId) => {
     cardsBlock.replaceChildren(...createCardsBlock(getAncientData(ancientId)));
-    console.log(countAncientCardsColors(getAncientData(ancientId)));
-    console.log(getDifficultyData(difficultyId));
-    // eslint-disable-next-line max-len
-    console.log(selectCards(countAncientCardsColors(getAncientData(ancientId)), getDifficultyData(difficultyId)));
 };
 
-export const showCardsBlock = (ancientId, difficultyId) => {
-    cardsBlock.classList.add('active');
-    createCardsBlockHandler(ancientId, difficultyId);
+export const updateCardsBlock = (blockData) => {
+    cardsBlock.replaceChildren(...createCardsBlock(blockData));
 };
 
-export const hideCardsBlock = () => {
-    cardsBlock.classList.remove('active');
+const clearCardsBlock = () => {
     cardsBlock.textContent = '';
 };
 
+// const setBg = async (num = null, service = null, tag = null) => {
+//     const img = new Image();
+//     img.src = getGithubImgLink(num);
+//     if (service === 'flickr') img.src = await getFlickrImg(tag);
+//     if (service === 'unsplash') img.src = await getUnsplashImg(tag);
 
-export default createCardsBlockHandler;
+//     inTransition = true;
+//     await loadImg(img);
+//     document.body.style.backgroundImage = `url(${img.src})`;
+//     document.body.style.backgroundSize = 'cover';
+//     document.body.style.backgroundPosition = 'center center';
+//     inTransition = false;
+// };
+
+export const renderCurrentCard = async (imageSrc, color) => {
+    deckCurrentCard.classList.remove('green', 'brown', 'blue');
+    await loadImg(imageSrc);
+    deckCurrentCard.style.backgroundImage = `url(${imageSrc})`;
+    deckCurrentCard.classList.add(color);
+};
+
+export const showDeck = (ancientId, difficultyId) => {
+    deckBlock.classList.add('active');
+    clearCardsBlock();
+    renderCardsBlock(ancientId, difficultyId);
+    deckTakeCard.classList.add('active');
+};
+
+export const hideDeck = () => {
+    deckBlock.classList.remove('active');
+    clearCardsBlock();
+    deckCurrentCard.style.backgroundImage = 'none';
+    deckCurrentCard.classList.remove('green', 'brown', 'blue');
+};

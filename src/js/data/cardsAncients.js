@@ -4,19 +4,19 @@ const cardsAncients = [
         name: 'Azathoth',
         cardFace: './assets/img/ancients/azathoth.jpg',
         firstStage: {
-            greenCards: 1,
-            blueCards: 1,
-            brownCards: 2
+            green: 1,
+            blue: 1,
+            brown: 2
         },
         secondStage: {
-            greenCards: 2,
-            blueCards: 1,
-            brownCards: 3
+            green: 2,
+            blue: 1,
+            brown: 3
         },
         thirdStage: {
-            greenCards: 2,
-            blueCards: 0,
-            brownCards: 4
+            green: 2,
+            blue: 0,
+            brown: 4
         }
     },
     {
@@ -24,19 +24,19 @@ const cardsAncients = [
         name: 'Cthulhu',
         cardFace: './assets/img/ancients/cthulthu.jpg',
         firstStage: {
-            greenCards: 0,
-            blueCards: 2,
-            brownCards: 2
+            green: 0,
+            blue: 2,
+            brown: 2
         },
         secondStage: {
-            greenCards: 1,
-            blueCards: 0,
-            brownCards: 3
+            green: 1,
+            blue: 0,
+            brown: 3
         },
         thirdStage: {
-            greenCards: 3,
-            blueCards: 0,
-            brownCards: 4
+            green: 3,
+            blue: 0,
+            brown: 4
         }
     },
     {
@@ -44,19 +44,19 @@ const cardsAncients = [
         name: 'Iog-Sothoth',
         cardFace: './assets/img/ancients/iogsothoth.jpg',
         firstStage: {
-            greenCards: 0,
-            blueCards: 1,
-            brownCards: 2
+            green: 0,
+            blue: 1,
+            brown: 2
         },
         secondStage: {
-            greenCards: 2,
-            blueCards: 1,
-            brownCards: 3
+            green: 2,
+            blue: 1,
+            brown: 3
         },
         thirdStage: {
-            greenCards: 3,
-            blueCards: 0,
-            brownCards: 4
+            green: 3,
+            blue: 0,
+            brown: 4
         }
     },
     {
@@ -64,19 +64,19 @@ const cardsAncients = [
         name: 'Shub-Niggurath',
         cardFace: './assets/img/ancients/shubniggurath.jpg',
         firstStage: {
-            greenCards: 1,
-            blueCards: 1,
-            brownCards: 2
+            green: 1,
+            blue: 1,
+            brown: 2
         },
         secondStage: {
-            greenCards: 3,
-            blueCards: 1,
-            brownCards: 2
+            green: 3,
+            blue: 1,
+            brown: 2
         },
         thirdStage: {
-            greenCards: 2,
-            blueCards: 0,
-            brownCards: 4
+            green: 2,
+            blue: 0,
+            brown: 4
         }
     }
 ];

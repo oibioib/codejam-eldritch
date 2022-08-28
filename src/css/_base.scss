@@ -35,7 +35,6 @@ body {
   background-color: rgba($color-background, 0.15);
   margin-bottom: $gap;
   border-radius: $border-radius;
-
 }
 
 .button {
@@ -46,17 +45,17 @@ body {
   transition: $transition;
   cursor: pointer;
   background-color: rgba($color-primary, 0.25);
-  color: #FFFFFF;
+  color: #ffffff;
 
   &:hover {
-    color: #FFFFFF;
+    color: #ffffff;
     border: 2px solid $color-primary;
     background-color: $color-primary;
     box-shadow: $box-shadow-hover;
   }
 
   &.active {
-    color: #FFFFFF;
+    color: #ffffff;
     border: 2px solid $color-primary;
     background-color: $color-primary;
 
@@ -69,6 +68,16 @@ body {
   &_big {
     font-size: 2rem;
     padding: calc($gap);
+
+    @media screen and (max-width: 768px) {
+      font-size: 1.8rem;
+      padding: calc($gap * 0.9);
+    }
+  
+    @media screen and (max-width: 560px) {
+      font-size: 1.6rem;
+      padding: calc($gap * 0.8);
+    }
   }
 }
 
@@ -77,7 +86,7 @@ body {
   margin-bottom: 0;
   display: flex;
   gap: $gap;
-  align-items:flex-end;
+  align-items: flex-end;
   justify-content: center;
 }
 
@@ -86,7 +95,7 @@ body {
   background-size: cover;
   opacity: 0.4;
   transition: opacity 0.3s ease;
-    
+
   &:hover {
     opacity: 1;
   }
@@ -97,7 +106,7 @@ body {
     background: url("../assets/svg/github.svg") center center no-repeat;
     background-size: 2.5rem 2.5rem;
   }
-  
+
   &_rsschool {
     width: 9rem;
     height: 2.5rem;
@@ -108,12 +117,50 @@ body {
 .make-deck {
   display: none;
   justify-content: center;
+  margin-top: -$gap;
 
   &.active {
     display: flex;
   }
 
   &__button {
-    min-width: 40%
+    min-width: 40%;
+
+    @media screen and (max-width: 560px) {
+      min-width: 60%;
+    }
+  }
+}
+
+.card {
+  width: calc(43rem / 2);
+  height: calc(55rem / 2);
+  max-width: 430px;
+  max-height: 550px;
+  background-size: cover;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: $transition;
+
+  @media screen and (max-width: 768px) {
+    width: calc(43rem / 3);
+    height: calc(55rem / 3);
+  }
+
+  @media screen and (max-width: 560px) {
+    width: calc(43rem / 4);
+    height: calc(55rem / 4);
+  }
+
+  &.active {
+    box-shadow: $box-shadow-active;
+
+    &:hover {
+      box-shadow: $box-shadow-active;
+    }
+  }
+
+  &:hover {
+    box-shadow: $box-shadow-hover;
   }
 }

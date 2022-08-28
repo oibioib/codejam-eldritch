@@ -1,22 +1,13 @@
-@keyframes test {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 .cards {
-  visibility: hidden;
-  opacity: 0;
-  flex-grow: 1;
-  margin-bottom: 0;
+  // visibility: hidden;
+  // opacity: 0;
+  // flex-grow: 1;
+  // margin-bottom: 0;
 
   &.active {
-    visibility: visible;
-    opacity: 1;
-    animation: show-cards 0.5s ease;
+    // visibility: visible;
+    // opacity: 1;
+    // animation: show-cards 0.5s ease;
   }
 
   &__stage {
@@ -30,6 +21,10 @@
       display: block;
       color: #ffffff;
       margin-bottom: calc($gap / 2);
+
+      &.desaturate {
+        opacity: 0.4;
+      }
     }
 
     &-cards {
@@ -41,6 +36,16 @@
       padding: calc($gap / 2) $gap;
       border-radius: $border-radius;
       color: #ffffff;
+
+      @media screen and (max-width: 768px) {
+        padding: calc($gap / 3) calc($gap / 2);
+        border-radius: calc($border-radius / 2);
+      }
+      
+      @media screen and (max-width: 560px) {
+        padding: calc($gap / 4) calc($gap / 2);
+        // border-radius: calc($border-radius / 3);
+      }
 
       &.green {
         background-color: $card-green;
@@ -60,14 +65,5 @@
         // opacity: 0.4;
       }
     }
-  }
-}
-
-@keyframes show-cards {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }

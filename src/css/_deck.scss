@@ -1,0 +1,96 @@
+.deck {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  visibility: hidden;
+  opacity: 0;
+  margin-bottom: 0;
+
+  @media screen and (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+
+  @media screen and (max-width: 560px) {
+    font-size: 1.1rem;
+  }
+
+  & > * {
+    display: none;
+    flex-basis: calc(43rem / 2);
+
+    @media screen and (max-width: 768px) {
+      flex-basis: calc(43rem / 3);
+    }
+
+    @media screen and (max-width: 560px) {
+      flex-basis: calc(43rem / 4);
+    }
+  }
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    animation: show-deck 0.5s ease;
+
+    & > * {
+      display: unset;
+    }
+  }
+
+  &__take-card {
+    visibility: hidden;
+    background-image: url("../assets/img/card-back.jpg");
+
+    &.active {
+      visibility: visible;
+      box-shadow: none;
+
+      &:hover {
+        box-shadow: $box-shadow-hover;
+      }
+    }
+  }
+
+  &__current-card {
+    box-shadow: none;
+    cursor: default;
+
+    &.green {
+      box-shadow: $box-shadow-green;
+    }
+
+    &.brown {
+      box-shadow: $box-shadow-brown;
+    }
+
+    &.blue {
+      box-shadow: $box-shadow-blue;
+    }
+
+    &:hover {
+      box-shadow: none;
+
+      &.green {
+        box-shadow: $box-shadow-green;
+      }
+
+      &.brown {
+        box-shadow: $box-shadow-brown;
+      }
+
+      &.blue {
+        box-shadow: $box-shadow-blue;
+      }
+    }
+  }
+}
+
+@keyframes show-deck {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
