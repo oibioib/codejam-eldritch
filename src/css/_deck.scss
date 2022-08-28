@@ -1,7 +1,6 @@
 .deck {
   display: flex;
   justify-content: space-between;
-  flex-grow: 1;
   flex-wrap: wrap;
   visibility: hidden;
   opacity: 0;
@@ -13,6 +12,12 @@
 
   @media screen and (max-width: 560px) {
     font-size: 1.1rem;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 430px) {
+    justify-content: center;
+    gap: calc($gap * 2);
   }
 
   & > * {
@@ -38,6 +43,12 @@
     }
   }
 
+  &__cards-state {
+    @media screen and (max-width: 430px) {
+      flex-basis: 100%;
+    }
+  }
+
   &__take-card {
     visibility: hidden;
     background-image: url("../assets/img/card-back.jpg");
@@ -55,6 +66,7 @@
   &__current-card {
     box-shadow: none;
     cursor: default;
+    background-color: rgba(#000000, 0.2);
 
     &.green {
       box-shadow: $box-shadow-green;

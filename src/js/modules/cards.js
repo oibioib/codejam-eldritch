@@ -18,7 +18,6 @@ const cardsColors = {
 };
 
 export const getAncientData = (ancientId) => cardsAncients.filter(({ id }) => id === ancientId)[0];
-// eslint-disable-next-line max-len
 const getDifficultyData = (difficultyId) => difficulties.filter(({ id }) => id === difficultyId)[0].select;
 
 const createStage = (stageData, stageNum) => {
@@ -76,8 +75,8 @@ const countAncientCardsColors = (ancientData) => {
     return colors;
 };
 
-// eslint-disable-next-line max-len
-const selectAllCardsByColorAndDifficultie = (color, difficultie) => cardsColors[color].filter((card) => card.difficulty === difficultie);
+const selectAllCardsByColorAndDifficultie = (color, difficultie) => cardsColors[color].filter((card) => card
+    .difficulty === difficultie);
 
 const selectAllCardsByColorAndAllDifficulties = (color, quantity, diffData) => {
     let cards = [];
@@ -107,9 +106,10 @@ const selectAllCardsByColorAndAllDifficulties = (color, quantity, diffData) => {
 
 const selectAllCardsForDeck = (colors, diffData) => {
     let cards = [];
-    Object.entries(colors).forEach(([color, quantity]) => {
-        cards = [...cards, ...selectAllCardsByColorAndAllDifficulties(color, quantity, diffData)];
-    });
+    Object.entries(colors)
+        .forEach(([color, quantity]) => {
+            cards = [...cards, ...selectAllCardsByColorAndAllDifficulties(color, quantity, diffData)];
+        });
     return cards;
 };
 
@@ -130,23 +130,10 @@ const clearCardsBlock = () => {
     cardsBlock.textContent = '';
 };
 
-// const setBg = async (num = null, service = null, tag = null) => {
-//     const img = new Image();
-//     img.src = getGithubImgLink(num);
-//     if (service === 'flickr') img.src = await getFlickrImg(tag);
-//     if (service === 'unsplash') img.src = await getUnsplashImg(tag);
-
-//     inTransition = true;
-//     await loadImg(img);
-//     document.body.style.backgroundImage = `url(${img.src})`;
-//     document.body.style.backgroundSize = 'cover';
-//     document.body.style.backgroundPosition = 'center center';
-//     inTransition = false;
-// };
-
 export const renderCurrentCard = async (imageSrc, color) => {
-    deckCurrentCard.classList.remove('green', 'brown', 'blue');
+    deckCurrentCard.classList.add('loading');
     await loadImg(imageSrc);
+    deckCurrentCard.classList.remove('loading', 'green', 'brown', 'blue');
     deckCurrentCard.style.backgroundImage = `url(${imageSrc})`;
     deckCurrentCard.classList.add(color);
 };

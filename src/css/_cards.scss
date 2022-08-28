@@ -1,17 +1,10 @@
 .cards {
-  // visibility: hidden;
-  // opacity: 0;
-  // flex-grow: 1;
-  // margin-bottom: 0;
-
-  &.active {
-    // visibility: visible;
-    // opacity: 1;
-    // animation: show-cards 0.5s ease;
-  }
-
   &__stage {
     margin-bottom: $gap;
+
+    @media screen and (max-width: 430px) {
+      text-align: center;
+    }
 
     &:last-child {
       margin-bottom: 0;
@@ -30,6 +23,14 @@
     &-cards {
       display: flex;
       gap: $gap;
+
+      @media screen and (max-width: 560px) {
+        gap: calc($gap * 0.7);
+      }
+
+      @media screen and (max-width: 430px) {
+        justify-content: center;
+      }
     }
 
     &-card {
@@ -38,13 +39,12 @@
       color: #ffffff;
 
       @media screen and (max-width: 768px) {
-        padding: calc($gap / 3) calc($gap / 2);
-        border-radius: calc($border-radius / 2);
+        padding: calc($gap * 0.5) calc($gap * 0.8);
+        border-radius: calc($border-radius * 0.8);
       }
-      
+
       @media screen and (max-width: 560px) {
-        padding: calc($gap / 4) calc($gap / 2);
-        // border-radius: calc($border-radius / 3);
+        padding: calc($gap * 0.4) calc($gap * 0.7);
       }
 
       &.green {
@@ -62,7 +62,6 @@
       &.empty {
         color: rgba(#ffffff, 0.4);
         background-color: rgba(#000000, 0.2);
-        // opacity: 0.4;
       }
     }
   }

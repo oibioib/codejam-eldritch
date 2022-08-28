@@ -2,12 +2,13 @@
 import '../css/style.scss';
 
 // Selectors
-import { ancientsBlock, deckTakeCard, difficultiesBlock, logBlock, makeDeckButton } from './selectors';
+import { ancientsBlock, deckTakeCard, difficultiesBlock, makeDeckButton } from './selectors';
 
 // Imports
 import renderAncientsBlock, { ancientCardDataAttr } from './modules/ancients';
 import renderDifficultiesBlock, { difficultieDataAttr } from './modules/difficulties';
-import { getAncientData, hideDeck, renderCurrentCard, selectAllCardsForDeckHandler, showDeck, updateCardsBlock } from './modules/cards';
+import { getAncientData, hideDeck, renderCurrentCard, selectAllCardsForDeckHandler, showDeck,
+    updateCardsBlock } from './modules/cards';
 import { hideMakeDeck, showMakeDeck } from './modules/make-deck';
 import { arrayShuffle, getRandomNums, isAllBoolenTrue } from './auxiliary/functions';
 import { clearLog, logCard } from './modules/log';
@@ -22,6 +23,7 @@ let currentStage = null;
 renderAncientsBlock();
 renderDifficultiesBlock();
 
+// Functions
 const setCardsInitState = (ancientId) => {
     currentStage = null;
     cardsCurrentState = {
@@ -42,11 +44,13 @@ const setCardsInitState = (ancientId) => {
         }
     };
     const data = getAncientData(ancientId);
-    Object.entries(cardsCurrentState).forEach(([stage, stageCards]) => {
-        Object.keys(stageCards).forEach((value) => {
-            cardsCurrentState[stage][value] = data[stage][value];
+    Object.entries(cardsCurrentState)
+        .forEach(([stage, stageCards]) => {
+            Object.keys(stageCards)
+                .forEach((value) => {
+                    cardsCurrentState[stage][value] = data[stage][value];
+                });
         });
-    });
 };
 
 const setRandomCardsForStages = (cardsObject, randomCards) => {
@@ -64,19 +68,45 @@ const setRandomCardsForStages = (cardsObject, randomCards) => {
 
     const alreadyInDeck = [];
 
-    Object.entries(cardsObject).forEach(([stage, cards]) => {
-        const stageCards = [];
-        Object.entries(cards).forEach(([color, quantity]) => {
-            const cardsNotInDeck = cardsForDeck[color].filter(
-                (card) => !alreadyInDeck.includes(card)
-            );
-            const randoms = getRandomCardsByColor(cardsNotInDeck, quantity);
-            alreadyInDeck.push(...randoms);
-            stageCards.push(...randoms);
+    Object.entries(cardsObject)
+        .forEach(([stage, cards]) => {
+            const stageCards = [];
+            Object.entries(cards)
+                .forEach(([color, quantity]) => {
+                    const cardsNotInDeck = cardsForDeck[color].filter(
+                        (card) => !alreadyInDeck.includes(card)
+                    );
+                    const randoms = getRandomCardsByColor(cardsNotInDeck, quantity);
+                    alreadyInDeck.push(...randoms);
+                    stageCards.push(...randoms);
+                });
+            arrayShuffle(stageCards);
+            cardsCurrentState[stage].cards = [...stageCards];
         });
-        arrayShuffle(stageCards);
-        cardsCurrentState[stage].cards = [...stageCards];
-    });
+};
+
+const getCurrentCard = async () => {
+    if (currentStage) {
+        const currentCard = cardsCurrentState[currentStage].cards.pop();
+        cardsCurrentState[currentStage][currentCard.color] -= 1;
+        await renderCurrentCard(currentCard.cardFace, currentCard.color);
+        logCard(currentCard);
+    }
+};
+
+const setCurrentStage = () => {
+    if (cardsCurrentState.firstStage.cards.length) {
+        currentStage = 'firstStage';
+    } else if (cardsCurrentState.secondStage.cards.length) {
+        currentStage = 'secondStage';
+    } else if (cardsCurrentState.thirdStage.cards.length) {
+        currentStage = 'thirdStage';
+        if (cardsCurrentState.thirdStage.cards.length === 1) {
+            deckTakeCard.classList.remove('active');
+        }
+    } else {
+        currentStage = null;
+    }
 };
 
 // Event Listeners
@@ -96,6 +126,7 @@ ancientsBlock.addEventListener('click', (e) => {
         renderDifficultiesBlock(difficultieChoosen);
         ancientChoosen = attr;
         renderAncientsBlock(attr);
+        hideMakeDeck();
         hideDeck();
         clearLog();
         if (isAllBoolenTrue(ancientChoosen, difficultieChoosen)) {
@@ -126,31 +157,6 @@ makeDeckButton.addEventListener('click', () => {
         selectAllCardsForDeckHandler(ancientChoosen, difficultieChoosen)
     );
 });
-
-const getCurrentCard = () => {
-    if (currentStage) {
-        const currentCard = cardsCurrentState[currentStage].cards.pop();
-        cardsCurrentState[currentStage][currentCard.color] -= 1;
-        renderCurrentCard(currentCard.cardFace, currentCard.color);
-
-        logCard(currentCard);
-    }
-};
-
-const setCurrentStage = () => {
-    if (cardsCurrentState.firstStage.cards.length) {
-        currentStage = 'firstStage';
-    } else if (cardsCurrentState.secondStage.cards.length) {
-        currentStage = 'secondStage';
-    } else if (cardsCurrentState.thirdStage.cards.length) {
-        currentStage = 'thirdStage';
-        if (cardsCurrentState.thirdStage.cards.length === 1) {
-            deckTakeCard.classList.remove('active');
-        }
-    } else {
-        currentStage = null;
-    }
-};
 
 deckTakeCard.addEventListener('click', () => {
     setCurrentStage();
