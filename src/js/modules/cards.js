@@ -18,7 +18,9 @@ const cardsColors = {
 };
 
 export const getAncientData = (ancientId) => cardsAncients.filter(({ id }) => id === ancientId)[0];
-const getDifficultyData = (difficultyId) => difficulties.filter(({ id }) => id === difficultyId)[0].select;
+const getDifficultyData = (difficultyId) => difficulties.filter(
+    ({ id }) => id === difficultyId
+)[0].select;
 
 const createStage = (stageData, stageNum) => {
     const stage = document.createElement('div');
@@ -75,8 +77,8 @@ const countAncientCardsColors = (ancientData) => {
     return colors;
 };
 
-const selectAllCardsByColorAndDifficultie = (color, difficultie) => cardsColors[color].filter((card) => card
-    .difficulty === difficultie);
+const selectAllCardsByColorAndDifficultie = (color, difficultie) => cardsColors[color]
+    .filter((card) => card.difficulty === difficultie);
 
 const selectAllCardsByColorAndAllDifficulties = (color, quantity, diffData) => {
     let cards = [];
@@ -108,7 +110,10 @@ const selectAllCardsForDeck = (colors, diffData) => {
     let cards = [];
     Object.entries(colors)
         .forEach(([color, quantity]) => {
-            cards = [...cards, ...selectAllCardsByColorAndAllDifficulties(color, quantity, diffData)];
+            cards = [
+                ...cards,
+                ...selectAllCardsByColorAndAllDifficulties(color, quantity, diffData)
+            ];
         });
     return cards;
 };

@@ -2,13 +2,24 @@
 import '../css/style.scss';
 
 // Selectors
-import { ancientsBlock, deckTakeCard, difficultiesBlock, makeDeckButton } from './selectors';
+import {
+    ancientsBlock,
+    deckTakeCard,
+    difficultiesBlock,
+    makeDeckButton
+} from './selectors';
 
 // Imports
 import renderAncientsBlock, { ancientCardDataAttr } from './modules/ancients';
 import renderDifficultiesBlock, { difficultieDataAttr } from './modules/difficulties';
-import { getAncientData, hideDeck, renderCurrentCard, selectAllCardsForDeckHandler, showDeck,
-    updateCardsBlock } from './modules/cards';
+import {
+    getAncientData,
+    hideDeck,
+    renderCurrentCard,
+    selectAllCardsForDeckHandler,
+    showDeck,
+    updateCardsBlock
+} from './modules/cards';
 import { hideMakeDeck, showMakeDeck } from './modules/make-deck';
 import { arrayShuffle, getRandomNums, isAllBoolenTrue } from './auxiliary/functions';
 import { clearLog, logCard } from './modules/log';
