@@ -3,6 +3,12 @@
   justify-content: center;
   gap: $gap;
   flex-wrap: wrap;
+  opacity: 0;
+  transition: $transition;
+
+  &.active {
+    opacity: 1;
+  }
 
   & > * {
     flex: 1 0 150px;

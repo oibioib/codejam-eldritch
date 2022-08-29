@@ -6,11 +6,12 @@ import {
     ancientsBlock,
     deckTakeCard,
     difficultiesBlock,
+    main,
     makeDeckButton
 } from './selectors';
 
 // Imports
-import renderAncientsBlock, { ancientCardDataAttr } from './modules/ancients';
+import { ancientCardDataAttr, createAncients, updateAncientsBlock } from './modules/ancients';
 import renderDifficultiesBlock, { difficultieDataAttr } from './modules/difficulties';
 import {
     getAncientData,
@@ -23,6 +24,7 @@ import {
 import { hideMakeDeck, showMakeDeck } from './modules/make-deck';
 import { arrayShuffle, getRandomNums, isAllBoolenTrue } from './auxiliary/functions';
 import { clearLog, logCard } from './modules/log';
+import cardsAncients from './data/cardsAncients';
 
 // Props
 let ancientChoosen = false;
@@ -30,9 +32,18 @@ let difficultieChoosen = false;
 let cardsCurrentState = {};
 let currentStage = null;
 
-// Init render blocks
-renderAncientsBlock();
-renderDifficultiesBlock();
+const renderInitBlocks = async (activeAncient = null) => {
+    main.classList.add('loading');
+    await createAncients(cardsAncients, activeAncient);
+    main.classList.remove('loading');
+    ancientsBlock.classList.add('active');
+    difficultiesBlock.classList.add('active');
+    renderDifficultiesBlock();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderInitBlocks();
+});
 
 // Functions
 const setCardsInitState = (ancientId) => {
@@ -125,7 +136,8 @@ ancientsBlock.addEventListener('click', (e) => {
     const attr = e.target.getAttribute(ancientCardDataAttr);
     if (attr && !ancientChoosen && difficultieChoosen) {
         ancientChoosen = attr;
-        renderAncientsBlock(attr);
+        // renderAncientsBlock(attr);
+        updateAncientsBlock(attr);
         hideDeck();
         clearLog();
         if (isAllBoolenTrue(ancientChoosen, difficultieChoosen)) {
@@ -136,7 +148,8 @@ ancientsBlock.addEventListener('click', (e) => {
         difficultieChoosen = false;
         renderDifficultiesBlock(difficultieChoosen);
         ancientChoosen = attr;
-        renderAncientsBlock(attr);
+        // renderAncientsBlock(attr);
+        updateAncientsBlock(attr);
         hideMakeDeck();
         hideDeck();
         clearLog();

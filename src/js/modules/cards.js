@@ -136,9 +136,9 @@ const clearCardsBlock = () => {
 };
 
 export const renderCurrentCard = async (imageSrc, color) => {
-    deckCurrentCard.classList.add('loading');
+    deckCurrentCard.classList.add('loading_with-background');
     await loadImg(imageSrc);
-    deckCurrentCard.classList.remove('loading', 'green', 'brown', 'blue');
+    deckCurrentCard.classList.remove('loading_with-background', 'green', 'brown', 'blue');
     deckCurrentCard.style.backgroundImage = `url(${imageSrc})`;
     deckCurrentCard.classList.add(color);
 };

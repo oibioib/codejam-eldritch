@@ -1,3 +1,4 @@
+export const main = document.querySelector('.main');
 export const ancientsBlock = document.querySelector('.ancients');
 export const difficultiesBlock = document.querySelector('.difficulties');
 export const deckBlock = document.querySelector('.deck');

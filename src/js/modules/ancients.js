@@ -1,31 +1,35 @@
+import { loadImg } from '../auxiliary/functions';
 import cardsAncients from '../data/cardsAncients';
 import { ancientsBlock } from '../selectors';
+import renderDifficultiesBlock from './difficulties';
 
 const ancientCardClass = 'card';
 export const ancientCardDataAttr = 'data-ancient';
 const ancientCardDataAttrName = 'data-ancient-name';
 const activeClass = 'active';
 
-const createAncientCard = (id, name, cardFace, activeAncient) => {
+const createAncientCard = async (id, name, cardFace, activeAncient) => {
     const ancientCard = document.createElement('div');
     ancientCard.classList.add(ancientCardClass);
-    if (id === activeAncient) ancientCard.classList.add(activeClass);
     ancientCard.setAttribute(ancientCardDataAttr, id);
     ancientCard.setAttribute(ancientCardDataAttrName, name);
+    ancientsBlock.appendChild(ancientCard);
+    await loadImg(cardFace);
     ancientCard.style.backgroundImage = `url(${cardFace})`;
-    return ancientCard;
+    // ancientCard.classList.remove('loading');
+    if (id === activeAncient) ancientCard.classList.add(activeClass);
 };
 
-const createAncients = (selector, ancientsData, activeAncient) => {
-    const ancients = [];
-    ancientsData.forEach(({ id, name, cardFace }) => {
-        ancients.push(createAncientCard(id, name, cardFace, activeAncient));
-    });
-    selector.replaceChildren(...ancients);
-};
+export const createAncients = (ancientsData, activeAncient) => Promise.all(
+    ancientsData.map(
+        ({ id, name, cardFace }) => createAncientCard(id, name, cardFace, activeAncient)
+    )
+);
 
-const renderAncientsBlock = (activeAncient = null) => {
-    createAncients(ancientsBlock, cardsAncients, activeAncient);
+export const updateAncientsBlock = (activeAncient = null) => {
+    const currentActiveEncient = ancientsBlock.querySelector('.active');
+    if (currentActiveEncient) {
+        currentActiveEncient.classList.remove('active');
+    }
+    ancientsBlock.querySelector(`[${ancientCardDataAttr}="${activeAncient}"]`).classList.add('active');
 };
-
-export default renderAncientsBlock;

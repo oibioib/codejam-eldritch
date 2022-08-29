@@ -3,4 +3,10 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: $gap;
+  opacity: 0;
+  transition: $transition;
+
+  &.active {
+    opacity: 1;
+  }
 }
