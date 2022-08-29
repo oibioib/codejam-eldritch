@@ -131,12 +131,28 @@ const setCurrentStage = () => {
     }
 };
 
-// Event Listeners
-ancientsBlock.addEventListener('click', (e) => {
+const deckTakeCardListener = async () => {
+    deckTakeCard.removeEventListener('click', deckTakeCardListener);
+    setCurrentStage();
+    await getCurrentCard();
+    updateCardsBlock(cardsCurrentState);
+    deckTakeCard.addEventListener('click', deckTakeCardListener);
+};
+
+const makeDeckButtonListener = () => {
+    hideMakeDeck();
+    showDeck(ancientChoosen, difficultieChoosen);
+    setCardsInitState(ancientChoosen);
+    setRandomCardsForStages(
+        cardsCurrentState,
+        selectAllCardsForDeckHandler(ancientChoosen, difficultieChoosen)
+    );
+};
+
+const ancientsBlockListener = (e) => {
     const attr = e.target.getAttribute(ancientCardDataAttr);
     if (attr && !ancientChoosen && difficultieChoosen) {
         ancientChoosen = attr;
-        // renderAncientsBlock(attr);
         updateAncientsBlock(attr);
         hideDeck();
         clearLog();
@@ -148,7 +164,6 @@ ancientsBlock.addEventListener('click', (e) => {
         difficultieChoosen = false;
         renderDifficultiesBlock(difficultieChoosen);
         ancientChoosen = attr;
-        // renderAncientsBlock(attr);
         updateAncientsBlock(attr);
         hideMakeDeck();
         hideDeck();
@@ -157,9 +172,9 @@ ancientsBlock.addEventListener('click', (e) => {
             showMakeDeck();
         }
     }
-});
+};
 
-difficultiesBlock.addEventListener('click', (e) => {
+const difficultiesBlockListener = (e) => {
     const attr = e.target.getAttribute(difficultieDataAttr);
     if (attr !== difficultieChoosen) {
         difficultieChoosen = attr;
@@ -170,20 +185,10 @@ difficultiesBlock.addEventListener('click', (e) => {
             showMakeDeck();
         }
     }
-});
+};
 
-makeDeckButton.addEventListener('click', () => {
-    hideMakeDeck();
-    showDeck(ancientChoosen, difficultieChoosen);
-    setCardsInitState(ancientChoosen);
-    setRandomCardsForStages(
-        cardsCurrentState,
-        selectAllCardsForDeckHandler(ancientChoosen, difficultieChoosen)
-    );
-});
-
-deckTakeCard.addEventListener('click', () => {
-    setCurrentStage();
-    getCurrentCard();
-    updateCardsBlock(cardsCurrentState);
-});
+// Event Listeners
+ancientsBlock.addEventListener('click', (e) => ancientsBlockListener(e));
+difficultiesBlock.addEventListener('click', (e) => difficultiesBlockListener(e));
+makeDeckButton.addEventListener('click', makeDeckButtonListener);
+deckTakeCard.addEventListener('click', deckTakeCardListener);

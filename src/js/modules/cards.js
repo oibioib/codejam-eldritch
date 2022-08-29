@@ -3,7 +3,9 @@ import cardsGreen from '../data/cardsGreen';
 import cardsBrown from '../data/cardsBrown';
 import cardsBlue from '../data/cardsBlue';
 import { difficulties } from './difficulties';
-import { cardsBlock, deckBlock, deckCurrentCard, deckTakeCard } from '../selectors';
+import {
+    cardsBlock, deckBlock, deckCurrentCard, deckTakeCard
+} from '../selectors';
 import { getRandomNums, loadImg } from '../auxiliary/functions';
 
 const cardsStageClass = 'cards__stage';
