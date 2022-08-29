@@ -139,10 +139,11 @@ const clearCardsBlock = () => {
 
 export const renderCurrentCard = async (imageSrc, color) => {
     deckCurrentCard.classList.add('loading_with-background');
-    await loadImg(imageSrc);
-    deckCurrentCard.classList.remove('loading_with-background', 'green', 'brown', 'blue');
-    deckCurrentCard.style.backgroundImage = `url(${imageSrc})`;
-    deckCurrentCard.classList.add(color);
+    await loadImg(imageSrc).then((src) => {
+        deckCurrentCard.style.backgroundImage = `url(${src})`;
+        deckCurrentCard.classList.remove('loading_with-background', 'green', 'brown', 'blue');
+        deckCurrentCard.classList.add(color);
+    });
 };
 
 export const showDeck = (ancientId, difficultyId) => {

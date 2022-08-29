@@ -1,7 +1,5 @@
 import { loadImg } from '../auxiliary/functions';
-import cardsAncients from '../data/cardsAncients';
 import { ancientsBlock } from '../selectors';
-import renderDifficultiesBlock from './difficulties';
 
 const ancientCardClass = 'card';
 export const ancientCardDataAttr = 'data-ancient';
@@ -14,8 +12,9 @@ const createAncientCard = async (id, name, cardFace, activeAncient) => {
     ancientCard.setAttribute(ancientCardDataAttr, id);
     ancientCard.setAttribute(ancientCardDataAttrName, name);
     ancientsBlock.appendChild(ancientCard);
-    await loadImg(cardFace);
-    ancientCard.style.backgroundImage = `url(${cardFace})`;
+    await loadImg(cardFace).then((src) => {
+        ancientCard.style.backgroundImage = `url(${src})`;
+    });
     // ancientCard.classList.remove('loading');
     if (id === activeAncient) ancientCard.classList.add(activeClass);
 };

@@ -24,9 +24,11 @@ export const arrayShuffle = (array) => {
     }
 };
 
-export const loadImg = (imgSrc) => new Promise((resolve, reject) => {
+const noImage = './assets/no-image.jpg';
+
+export const loadImg = (imgSrc) => new Promise((resolve) => {
     const img = new Image();
     img.src = imgSrc;
     img.addEventListener('load', () => resolve(imgSrc));
-    img.addEventListener('error', reject);
+    img.addEventListener('error', () => resolve(noImage));
 });

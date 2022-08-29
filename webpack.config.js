@@ -45,6 +45,10 @@ module.exports = ({ development }) => ({
                     to: path.resolve(__dirname, 'dist/assets/img/cards')
                 },
                 {
+                    from: path.resolve(__dirname, 'src/assets/img/no-image.jpg'),
+                    to: path.resolve(__dirname, 'dist/assets/no-image.jpg')
+                },
+                {
                     from: path.resolve(__dirname, 'src/assets/favicon.ico'),
                     to: path.resolve(__dirname, 'dist/favicon.ico')
                 }
